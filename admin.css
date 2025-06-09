@@ -1,0 +1,163 @@
+/* admin.css */
+
+/*First Gradient background */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #2A7B9B;
+    /*Background color of first theme*/
+    background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+    color: #f2eeee; /*font color of first theme*/
+    transition: 0.5s, color 0.5s;
+}
+
+.admin-container {
+    max-width: 1000px;
+    margin: auto;
+    /*Table container color for first theme*/
+    background-image: linear-gradient( 111.6deg,  rgba(114,167,232,1) 9.4%, rgba(253,129,82,1) 43.9%, rgba(253,129,82,1) 54.8%, rgba(249,202,86,1) 86.3% ); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(18, 233, 7, 0.3); /*Table shadow color*/
+    transition: 0.3s, box-shadow 0.3s;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4285f4; /*color of button*/
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2a6cd3;
+}
+
+.no-data {
+    margin-top: 15px;
+    color: #f4fdf6;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    /*color of table*/
+    background-image: linear-gradient( 111.8deg,  rgba(20,16,86,1) 34.4%, rgba(92,152,218,1) 96.2% ); 
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 10px;
+    /*Color of line in table*/
+    border: 1px solid #19cfdf;
+    text-align: left;
+    transition: background-color 0.3s;
+}
+
+th {
+    /*Color of first line of table*/
+    background-image: radial-gradient( circle farthest-corner at 6.3% 21.8%,  rgba(236,6,117,1) 0%, rgba(13,32,67,1) 90% );
+}
+
+tr:hover td {
+    /*color when select the elements in table*/
+    background-image: linear-gradient( 270.5deg,  rgba(79,232,207,1) 2.5%, rgba(26,25,31,1) 105.9% );
+}
+
+.home-button { /*color of Home button*/
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white; /*its font color*/
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index : 1000; /*Keep it always on top of other content*/
+}
+
+.home-button:hover {
+    background-color: #0056b3;
+}
+
+/* Second Theme mode */
+body.dark-mode {
+    background-image: linear-gradient( 103.3deg,  rgba(252,225,208,1) 30%, rgba(255,173,214,1) 55.7%, rgba(162,186,245,1) 81.8% );
+    color: #0e0e0e; /*font color*/
+}
+
+body.dark-mode .admin-container { /*Admin container color*/
+    background-image: linear-gradient( 109.6deg,  rgba(163,213,255,1) 11.3%, rgba(4,137,137,1) 86.7% );
+    box-shadow: 0 4px 20px rgba(85, 123, 237, 0.1); /*Table shadow color*/
+}
+
+body.dark-mode table { /*table color*/
+    background-image: linear-gradient( 91.7deg,  rgba(231,246,111,1) 6.9%, rgba(248,126,197,1) 49%, rgba(108,114,241,1) 90% ); 
+}
+
+body.dark-mode th { /*The first line of table color*/
+    background-image: linear-gradient( 359.5deg,  rgba(115,122,205,1) 8.8%, rgba(186,191,248,1) 77.4% ); 
+}
+
+body.dark-mode tr:hover td { /*color when selected elements of table*/
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(235,183,241,1) 17.3%, rgba(228,145,235,1) 90% );
+}
+
+body.dark-mode button {
+    background-color:  rgba(4,137,137,1) 86.7% ;  /*color of button*/
+    color: #f9f3f3;
+}
+
+body.dark-mode button:hover {
+    background-color: #c00808; /*color of mode and show record button when selected*/
+}
+
+/* Toggle Mode button*/
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color:  rgba(4,137,137,1) 86.7% ;
+    cursor: pointer;
+    border: none;
+}
+
+body.dark-mode .theme-toggle {
+    background-color: #141416; /*Background color of Theme Button*/
+    color: #fff;
+} 
+
+body.dark-mode .home-button { /*color of Home button*/
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #141416;
+    color: #fff; /*its font color*/
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1000; /*Keep it on top of other content*/
+}
+
+body.dark-mode .home-button:hover {
+    background-color: #c00808;
+}
+
+

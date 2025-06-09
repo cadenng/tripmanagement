@@ -1,0 +1,221 @@
+#compare-section { /*Disable Select button before input username*/
+    display: none;
+}
+
+/* Reset some defaults */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body { /*font format*/
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* Header Choose Your Destination */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 { 
+    font-size: 2.5em;
+    color: #2c3e50;
+}
+
+/* User Info Section */
+#user-info { 
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/*Input textbox*/
+#user-info input[type="text"] {
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+/* Destination Buttons */
+#destination-selection {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/*Color for destinations button*/
+.destination {
+    background-color: #3498db;
+    color: white;
+    padding: 80px 100px;
+    margin: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index : 1000;
+}
+
+/*When the button is selected color*/
+.destination:hover {
+    background-color: #2980b9;
+}
+
+/* Trip Details Section */
+#trip-details {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    max-width: 1100px;
+    margin: 0 auto 30px;
+}
+
+/* Tables for data of flights and hotel */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+/*th is table header
+ *td is table data
+*/
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/*tr is table rows*/
+tr:hover { /*color when seleced*/
+    background-color: #f9f9f9;
+}
+
+/* Filter Section */
+/*Filter background container color*/
+#filters {
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/*The filter box inside the filter container*/
+#filters label {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+/*Box for input range,star and room type*/
+#filters input, #filters select {
+    padding: 6px;
+    margin-left: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Select Buttons */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #2ecc71;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #27ae60;
+}
+
+/*Color when no username*/
+button.disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* Comparison Cards */
+.compare-card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #fdfdfd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Save Selection Button */
+#save-selection {
+    margin-top: 20px;
+    background-color: #e67e22;
+}
+
+#save-selection:hover {
+    background-color: #d35400;
+}
+
+/* Admin Panel Button */
+button[onclick*="admin.php"] {
+    display: block;
+    margin: 30px auto 0;
+    background-color: #9b59b6;
+}
+
+button[onclick*="admin.php"]:hover {
+    background-color: #8e44ad;
+}
+
+/* No Hotels Message */
+#no-hotels-message {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Specific backgrounds for each destination */
+.destination[data-destination="China"] {
+    background-image: url('img/destination/China-Beijing.jpg');
+    background-size: 130%; /*image size*/
+    background-position: center;
+    background-repeat: no-repeat; /*prevent image repeating*/
+}
+
+.destination[data-destination="Malaysia"] {
+    background-image: url('img/destination/Malaysia-KL.jpg');
+    background-size: 105%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.destination[data-destination="England"] {
+    background-image: url('img/destination/England.jpg');
+    background-size: 115%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.destination[data-destination="America"] {
+    background-image: url('img/destination/America.jpeg');
+    background-size: 105%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+

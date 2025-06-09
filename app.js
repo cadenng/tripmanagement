@@ -12,7 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const compareHotelsContainer = document.getElementById("compare-hotels");
     const usernameInput = document.getElementById("username");
     const filterButton = document.getElementById("apply-filters");
-
+    const saveMessage = document.getElementById("save-message");
+    const saveButton = document.getElementById("save-selection");
+    
     let hotels = [];
     let flights = [];
     let selectedFlight = null;
@@ -70,23 +72,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${flight.airline}</td>
                 <td>$${flight.price}</td>
                 <td>${flight.duration}</td>
-                <td><button class="select-flight" onclick="selectFlight(${index})" disabled>Select</button></td>
+                <td><button class="select-flight" onclick="selectFlight(${index})" disabled>Select
+                </button></td>
             `; //button that calls back selectFlight(index) when clicked
             airlineTableBody.appendChild(row);
-
-            const card = document.createElement("div");
-            card.className = "compare-card";
-            card.innerHTML = `<strong>${flight.airline}</strong>: $${flight.price} - ${flight.duration}`; //price and duration were shown
-            compareFlightsContainer.appendChild(card);
         });
     }
 
-    //function to displat hotel data
+    //function to display hotel data
     function displayHotels(hotels) {
         hotelTableBody.innerHTML = "";
         compareHotelsContainer.innerHTML = "";
 
-        if (hotels.length === 0) {
+        if (hotels.length === 0) { //if no hotels matched
             noHotelsMessage.style.display = "block";
             return;
         } else {
@@ -94,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         hotels.forEach((hotel, index) => {
-            const row = document.createElement("tr"); //table 
+            const row = document.createElement("tr"); //table for hotel data
             row.innerHTML = `
                 <td>${hotel.name}</td>
                 <td>${hotel.rating} stars</td>
@@ -103,40 +101,62 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td><button class="select-hotel" onclick="selectHotel(${index})" disabled>Select</button></td>
             `;
             hotelTableBody.appendChild(row);
-
-            const card = document.createElement("div");
-            card.className = "compare-card";
-            card.innerHTML = `<strong>${hotel.name}</strong>: ${hotel.rating}★ - $${hotel.price}<br>${hotel.attractions.join(", ")}`;
-            compareHotelsContainer.appendChild(card);
         });
     }
 
     //When user select flight, update the budget calculation
     window.selectFlight = function (index) {
         selectedFlight = flights[index];
+        updateCompareSection();
         updateBudget();
     };
 
     window.selectHotel = function (index) {
         selectedHotel = hotels[index];
+        updateCompareSection();
         updateBudget();
     };
 
+    //Function to update compare section
+    //After user select options
+    function updateCompareSection() {
+        const compareSection = document.getElementById("compare-section");
+        
+        //Only clear when user not choose both flights and hotels
+        compareSection.style.display = (selectedFlight || selectedHotel) ? "block" : "none";
+
+        //After select flight, comparison part shows it
+        if (selectedFlight) {
+        compareFlightsContainer.innerHTML = "";
+        const flightCard = document.createElement("div");
+        flightCard.className = "compare-card";
+        flightCard.innerHTML = `
+            <strong>${selectedFlight.airline}</strong><br>
+            Price: $${selectedFlight.price}<br>
+            Duration: ${selectedFlight.duration}<br><br>
+        `;
+        compareFlightsContainer.appendChild(flightCard);
+    }
+
+        //After select hotel, comparison part shows it
+        if (selectedHotel) {
+        compareHotelsContainer.innerHTML = "";
+        const hotelCard = document.createElement("div");
+        hotelCard.className = "compare-card";
+        hotelCard.innerHTML = `
+            <strong>${selectedHotel.name}</strong><br>
+            Rating: ${selectedHotel.rating}★<br>
+            Price: $${selectedHotel.price}<br>
+            Attractions: ${selectedHotel.attractions.join(", ")}<br><br>
+        `;
+        compareHotelsContainer.appendChild(hotelCard);
+    }
+}
     //function to update the calculation of budget after choose flight and hotel
     function updateBudget() {
         if (selectedFlight && selectedHotel) {
             const total = selectedFlight.price + selectedHotel.price;
             estimatedBudget.textContent = `Estimated Total: $${total}`;
-
-            const currentUsername = usernameInput.value.trim();
-            saveSelection(
-                currentUsername,
-                selectedDestination.textContent,
-                selectedFlight.airline,
-                selectedFlight.price,
-                selectedHotel.name,
-                selectedHotel.price
-            );
         }
     }
 
@@ -155,8 +175,25 @@ document.addEventListener("DOMContentLoaded", function () {
             })
         })
         .then(response => response.text())
-        .then(data => console.log("Server Response:", data)) //Output when save are done
-        .catch(err => console.error("Save failed:", err)); //If save are failed
+        .then(data => { //if no error and saved sucessfully
+            console.log("Server Response:", data);
+            saveMessage.textContent = "Your options are successfully saved!";
+            saveMessage.style.color = "green";
+        })
+        .catch(err => { //if there are errors
+            console.error("Save failed:", err);
+            saveMessage.textContent = "Failed to save selection.";
+            saveMessage.style.color = "red";
+        ;
+            saveSelection( //Data that are saved
+                username,
+                selectedDestination.textContent,
+                selectedFlight.airline,
+                selectedFlight.price,
+                selectedHotel.name,
+                selectedHotel.price
+            );
+        });
     }
 
     //filter for hotel
@@ -185,12 +222,35 @@ document.addEventListener("DOMContentLoaded", function () {
             filtered = filtered.filter(hotel => hotel.room_type === room);
         }
 
-        displayHotels(filtered);
+        displayHotels(filtered); //Display hotel data based on user filter input
         toggleSelectButtons(usernameInput.value.trim().length > 0); //Make sure user has input username
     };
 
-    //
+    //After click on filter button,apply filter
     if (filterButton) {
         filterButton.addEventListener("click", () => filterHotels());
     }
+
+    //After click on save selection button
+    if (saveButton) {
+    saveButton.addEventListener("click", function () {
+        const username = usernameInput.value.trim();
+
+        if (!username || !selectedFlight || !selectedHotel) { //If only choose one or choose nothing
+            saveMessage.textContent = "Please enter your username and select both a flight and hotel before saving.";
+            saveMessage.style.color = "red";
+            return;
+        }
+
+        saveSelection( //call back function to save data choosen
+            username,
+            selectedDestination.textContent,
+            selectedFlight.airline,
+            selectedFlight.price,
+            selectedHotel.name,
+            selectedHotel.price
+        );
+    });
+}
 });
+
